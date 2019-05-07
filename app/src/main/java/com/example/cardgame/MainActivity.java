@@ -1,35 +1,37 @@
 package com.example.cardgame;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton bee1,bee2,bewear1,bewear2,panda1,panda2;
-    boolean boo1,boo2;
+    Card bee1, bee2, bewear1, bewear2, panda1, panda2;
     int cartas;
+    Card flipped;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        boo1 = false;
-        boo2 = false;
         cartas = 0;
 
-        bee1 = findViewById(R.id.bee_1);
-        bee2 = findViewById(R.id.bee_2);
-        bewear1 = findViewById(R.id.bewear_1);
-        bewear2 = findViewById(R.id.bewear_2);
-        panda1 = findViewById(R.id.panda_1);
-        panda2 = findViewById(R.id.panda_2);
+        bee1 = new Card();
+        bee2 = new Card();
+        bewear1 = new Card();
+        bewear2 = new Card();
+        panda1 = new Card();
+        panda2 = new Card();
 
+
+        bee1.btn = findViewById(R.id.bee_1);
+        bee2.btn = findViewById(R.id.bee_2);
+        bewear1.btn = findViewById(R.id.bewear_1);
+        bewear2.btn = findViewById(R.id.bewear_2);
+        panda1.btn = findViewById(R.id.panda_1);
+        panda2.btn = findViewById(R.id.panda_2);
 
 
         new CountDownTimer(3000,1000){
@@ -38,85 +40,84 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onFinish() {
-                flipCard(R.drawable.back,bee1);
-                flipCard(R.drawable.back,bee2);
-                flipCard(R.drawable.back,bewear1);
-                flipCard(R.drawable.back,bewear2);
-                flipCard(R.drawable.back,panda1);
-                flipCard(R.drawable.back,panda2);
+                bee1.flipCard(R.drawable.back);
+                bee2.flipCard(R.drawable.back);
+                bewear1.flipCard(R.drawable.back);
+                bewear2.flipCard(R.drawable.back);
+                panda1.flipCard(R.drawable.back);
+                panda2.flipCard(R.drawable.back);
 
 
-                bee1.setOnClickListener(new View.OnClickListener() {
+                bee1.btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(!boo1){
-                            flipCard(R.drawable.bee,bee1);
-                            boo1 = true;
+                        if(!bee1.flip){
+                            bee1.flipCard(R.drawable.bee);
                             cartas++;
-                            // CHECK CARTAS
-                        }else if (boo1 && boo2) {
-                                bee1.setClickable(false);
+                            bee1.flip = true;
+                            if(flipped == null){
+                                flipped = bee1;
                             }
+                            if(cartas == 2){
+                                bee1.checkCards(bee2.flip,flipped);
+                                flipped = null;
+                            }
+                        }else if(bee1.flip && bee2.flip){
+                            bee1.btn.setClickable(false);
+                            cartas = 0;
+                        }
                         }
                 });
-                bee2.setOnClickListener(new View.OnClickListener() {
+                bee2.btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(!boo2){
-                            flipCard(R.drawable.bee,bee2);
-                            boo2 = true;
+                        if(!bee2.flip){
+                            bee2.flipCard(R.drawable.bee);
                             cartas++;
-                        }else if (boo1 && boo2) {
-                                bee2.setClickable(false);
+                            bee2.flip = true;
+                            if(flipped == null){
+                                flipped = bee2;
                             }
+                            if(cartas == 2){
+                                bee2.checkCards(bee1.flip,flipped);
+                                flipped = null;
+                            }
+                        }else if (bee2.flip && bee1.flip){
+                            bee2.btn.setClickable(false);
+                            cartas = 0;
                         }
+                    }
                 });
-                bewear1.setOnClickListener(new View.OnClickListener() {
+                bewear1.btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        flipCard(R.drawable.bewear,bewear1);
+                        bewear1.flipCard(R.drawable.bewear);
                         cartas++;
                     }
                 });
-                bewear2.setOnClickListener(new View.OnClickListener() {
+                bewear2.btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        flipCard(R.drawable.bewear,bewear2);
+                        bewear2.flipCard(R.drawable.bewear);
                         cartas++;
                     }
                 });
-                panda1.setOnClickListener(new View.OnClickListener() {
+                panda1.btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        flipCard(R.drawable.panda,panda1);
+                        panda1.flipCard(R.drawable.panda);
                         cartas++;
                     }
                 });
-                panda2.setOnClickListener(new View.OnClickListener() {
+                panda2.btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        flipCard(R.drawable.panda,panda2);
+                        panda2.flipCard(R.drawable.panda);
                         cartas++;
                     }
                 });
             }
         }.start();
-
-    }
-
-    private void flipCard(final int p, final ImageButton btn) {
-        ObjectAnimator flip = ObjectAnimator.ofFloat(btn, "rotationY", 0f, 90f);
-        final ObjectAnimator flip2 = ObjectAnimator.ofFloat(btn, "rotationY", 90f, 180f);
-        flip.setDuration(1000);
-        flip2.setDuration(1000);
-        flip.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                btn.setBackgroundResource(p);
-                flip2.start();
-            }
-        });
-        flip.start();
     }
 
 }
