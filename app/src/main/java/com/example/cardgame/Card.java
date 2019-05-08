@@ -48,7 +48,6 @@ public class Card {
         if(flip && !card2){
             flipCard(R.drawable.back);
             flipped.flipCard(R.drawable.back);
-
         }
     }
 }
