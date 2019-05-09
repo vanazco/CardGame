@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         checkCards2(bee1,bee2.flip,flipped);
+                                        flipped.flip = false;
                                         flipped = null;
                                         bee1.flip = false;
                                         cartas = 0;
@@ -72,10 +73,11 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }else if(bee1.flip && bee2.flip){
                             bee1.btn.setClickable(false);
-                            cartas = 0;
+                            bee2.btn.setClickable(false);
                         }
-                        }
+                    }
                 });
+
                 bee2.btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -91,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         checkCards2(bee2,bee1.flip,flipped);
+                                        flipped.flip = false;
                                         flipped = null;
                                         bee2.flip = false;
                                         cartas = 0;
@@ -98,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
                                 },2000);
                             }
                         }else if (bee2.flip && bee1.flip){
+                            bee1.btn.setClickable(false);
                             bee2.btn.setClickable(false);
-                            cartas = 0;
                         }
                     }
                 });
@@ -118,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         checkCards2(bewear1, bewear2.flip, flipped);
+                                        flipped.flip = false;
                                         flipped = null;
                                         bewear1.flip = false;
                                         cartas = 0;
@@ -126,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }else if (bewear1.flip && bewear2.flip){
                             bewear1.btn.setClickable(false);
-                            cartas = 0;
+                            bewear2.btn.setClickable(false);
                         }
                     }
                 });
@@ -145,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     checkCards2(bewear2, bewear1.flip, flipped);
+                                    flipped.flip = false;
                                     flipped = null;
                                     bewear2.flip = false;
                                     cartas = 0;
@@ -152,8 +157,8 @@ public class MainActivity extends AppCompatActivity {
                             }, 2000);
                         }
                         }else if (bewear2.flip && bewear1.flip){
+                            bewear1.btn.setClickable(false);
                             bewear2.btn.setClickable(false);
-                            cartas = 0;
                         }
                     }
                 });
@@ -172,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     checkCards2(panda1, panda2.flip, flipped);
+                                    flipped.flip = false;
                                     flipped = null;
                                     panda1.flip = false;
                                     cartas = 0;
@@ -180,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         }else if (panda1.flip && panda2.flip){
                             panda1.btn.setClickable(false);
-                            cartas = 0;
+                            panda2.btn.setClickable(false);
                         }
                     }
                 });
@@ -199,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     checkCards2(panda2, panda1.flip, flipped);
+                                    flipped.flip = false;
                                     flipped = null;
                                     panda2.flip = false;
                                     cartas = 0;
@@ -207,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         }else if (panda2.flip && panda1.flip){
                             panda2.btn.setClickable(false);
-                            cartas = 0;
+                            panda1.btn.setClickable(false);
                         }
                     }
                 });
