@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 
-public class MainActivity extends AppCompatActivity {
+public class CardGame extends AppCompatActivity {
 
     Card bee1, bee2, bewear1, bewear2, panda1, panda2;
     int cartas;
@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.card_game);
         cartas = 0;
 
         bee1 = new Card();

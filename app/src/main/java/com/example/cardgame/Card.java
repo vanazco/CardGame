@@ -14,22 +14,6 @@ public class Card {
         flip = false;
     }
 
-    public ImageButton getBtn() {
-        return btn;
-    }
-
-    public void setBtn(ImageButton btn) {
-        this.btn = btn;
-    }
-
-    public boolean isFlip() {
-        return flip;
-    }
-
-    public void setFlip(boolean flip) {
-        this.flip = flip;
-    }
-
     public void flipCard(final int p) {
         ObjectAnimator flip = ObjectAnimator.ofFloat(btn, "rotationY", 0f, 90f);
         final ObjectAnimator flip2 = ObjectAnimator.ofFloat(btn, "rotationY", 90f, 180f);
